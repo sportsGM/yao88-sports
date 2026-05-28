@@ -468,7 +468,7 @@ const $=id=>document.getElementById(id);
 const LS_USERS='pgai_users_v3';
 const LS_CURRENT='pgai_current_v3';
 const defaultUsers=[
-  {account:'paoge5888',password:'123456',nickname:'砲哥',lineId:'@946sjdhg',role:'體育大神',monthRecommended:30,monthWins:22},
+  {account:'5888',password:'123456',nickname:'砲哥',lineId:'@946sjdhg',role:'體育大神',monthRecommended:30,monthWins:22},
   {account:'yao88',password:'123456',nickname:'龍女',lineId:'@yao88',role:'體育大神',monthRecommended:28,monthWins:20}
 ];
 const baseCounts={'體育萌新':138,'一般會員':226,'VIP會員':318,'體育大神':26};
@@ -508,7 +508,7 @@ function renderAuthUI(){
   $('levelStats').innerHTML=`<div class="rounded-full bg-slate-900 border border-slate-700 px-3 py-2 text-slate-300">🌱 體育萌新 <span>${counts['體育萌新']}</span></div><div class="rounded-full bg-emerald-400/10 border border-emerald-400/20 px-3 py-2 text-emerald-300">💎 一般會員 <span>${counts['一般會員']}</span></div><div class="rounded-full bg-amber-400/10 border border-amber-400/20 px-3 py-2 text-amber-300">👑 VIP會員 <span>${counts['VIP會員']}</span></div><div class="rounded-full bg-fuchsia-400/10 border border-fuchsia-400/20 px-3 py-2 text-fuchsia-300">🏆 體育大神 <span>${counts['體育大神']}</span></div>`;
   $('onlineTotal').textContent=String(Object.values(counts).reduce((a,b)=>a+b,0));
   const admin=[];
-  if(me&&me.account==='paoge5888') admin.push('<div class="admin-chip">砲哥上線中</div>');
+  if(me&&me.account==='5888') admin.push('<div class="admin-chip">砲哥上線中</div>');
   if(me&&me.account==='yao88') admin.push('<div class="admin-chip">龍女上線中</div>');
   $('adminOnline').innerHTML=admin.join('');
   $('authStatusWrap').innerHTML=me?`<div class="user-chip">${roleEmoji(me.role)} ${me.nickname}</div>`:'';
@@ -708,7 +708,7 @@ function getSiteMode(){
   const host=(location.hostname+location.pathname).toLowerCase();
   if(qs==='longnv'||host.includes('yao88.sports.com')||host.includes('yao88')||host.includes('longnv')||host.includes('dragon')) return 'longnv';
   if(qs==='paoge'||host.includes('paoge.sports.com')||host.includes('paoge')) return 'paoge';
-  return 'paoge';
+  return 'longnv';
 }
 function siteConfig(){ return SITE_CONFIGS[getSiteMode()]||SITE_CONFIGS.paoge; }
 function applySiteBranding(){
