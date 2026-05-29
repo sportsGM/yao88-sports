@@ -1,14 +1,25 @@
-name: Hourly sports sync
+name: Sports sync v114 footballTeamNote fix
 
 on:
   schedule:
-    - cron: "7 * * * *"
+    # 小同步：每小時 10 分檢查一次；避開 UTC 16:10，因為那是台灣 00:10 大同步
+    - cron: "10 0-15,17-23 * * *"
+    # 大同步：每天台灣時間 00:10 = UTC 16:10
+    - cron: "10 16 * * *"
   workflow_dispatch:
+    inputs:
+      sync_mode:
+        description: "選擇同步模式"
+        required: true
+        default: "incremental"
+        type: choice
+        options:
+          - incremental
+          - full
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,10 +30,19 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npx playwright install chromium --with-deps
 
       - name: Run sports sync
         run: npm run sync:sports
         env:
+          SYNC_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.sync_mode || (github.event.schedule == '10 16 * * *' && 'full' || 'incremental') }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SEARCH_PROVIDER: ${{ secrets.SEARCH_PROVIDER }}
+          SEARCH_API_KEY: ${{ secrets.SEARCH_API_KEY }}
+          GOOGLE_CSE_ID: ${{ secrets.GOOGLE_CSE_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          API_SPORTS_KEY: ${{ secrets.API_SPORTS_KEY }}
