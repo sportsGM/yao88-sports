@@ -1,1 +1,5 @@
-v134 - MLB/CPBL/NBA auto comments full count, other leagues 0-2, quick comment buttons retained
+v127_SAFE_YAO88
+- 保留原本今日/明日抓取流程與 yao88 原始排程。
+- 僅修正 full 大同步判斷為 12 16。
+- 前台今日/明日顯示所有 active 賽事。
+- 足球不開放讓分盤；棒球/籃球保留讓分。
