@@ -2,10 +2,10 @@ name: Sports sync v121 battle-info parser
 
 on:
   schedule:
-    # 小同步：每小時 18 分檢查新增賽事與盤口變動；不覆蓋舊分析
-    - cron: "18 0-15,17-23 * * *"
-    # 大同步：每天台灣時間 00:12 = UTC 16:12；今日已完賽保留，來源消失才下架
-    - cron: "12 16 * * *"
+    # 小同步：每小時 17 分檢查新增賽事與盤口變動；不覆蓋舊分析
+    - cron: "17 0-15,17-23 * * *"
+    # 大同步：每天台灣時間 00:13 = UTC 16:13；今日已完賽保留，來源消失才下架
+    - cron: "13 16 * * *"
   workflow_dispatch:
     inputs:
       sync_mode:
@@ -37,7 +37,7 @@ jobs:
       - name: Run sports sync
         run: npm run sync:sports
         env:
-          SYNC_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.sync_mode || (github.event.schedule == '12 16 * * *' && 'full' || 'incremental') }}
+          SYNC_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.sync_mode || (github.event.schedule == '13 16 * * *' && 'full' || 'incremental') }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SEARCH_PROVIDER: ${{ secrets.SEARCH_PROVIDER }}
