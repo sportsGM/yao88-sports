@@ -1,5 +1,3 @@
-v131-yao88-cpbl-loose-parser
-- 龍女版本。
-- 對應砲哥 v131：CPBL loose parser。
-- 保留龍女原本排程：小同步 18 分，大同步 00:12。
-- full 判斷修正為 12 16。
+v136
+- 修正 CPBL duplicate key：unique key 不含 game_date，改為刪除同一 today/tomorrow 池全部 CPBL 舊列後重建。
+- 保留 v135/v134 verify 與前端修正。
